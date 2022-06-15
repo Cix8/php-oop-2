@@ -27,7 +27,9 @@ class User {
     }
 
     public function addToCart($item) {
-        $this->cart[] = $item;
+        if ($item->available) {
+            $this->cart[] = $item;
+        }
     }
 
     public function getFinalPrice() {
@@ -56,4 +58,3 @@ class User {
         return false;
     }
 }
-?>
