@@ -38,12 +38,16 @@ $new_user_type = $_POST["user"];
 
 var_dump($new_user_type);
 
+$form_done = false;
+
 if (!empty($new_name) && !empty($new_lastname) && !empty($new_email)) {
     if ($new_user_type === "registered_user") {
         $new_user = new Registered_user($new_name, $new_lastname, $new_email, $new_credit_card);
     } else {
         $new_user = new User($new_name, $new_lastname, $new_email, $new_credit_card);
     }
+
+    $form_done = true;
 }
 
 var_dump($new_user);
@@ -67,26 +71,32 @@ var_dump($new_user);
 
     <header>
         <div class="form">
+            <?php if (!$form_done) { ?>
             <form action="index.php" method="post">
                 <label for="name">Name: </label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" required>
 
                 <label for="lastname">Lastname:</label>
-                <input type="text" name="lastname" id="lastname">
+                <input type="text" name="lastname" id="lastname" required>
 
                 <label for="email">Email: </label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
 
                 <label for="credit_card">Credit Card: </label>
                 <input type="text" name="credit_card" id="credit_card">
 
                 <label for="normal_user">Salva dati per singolo acquisto</label>
-                <input type="radio" id="normal_user" name="user" value="normal_user">
+                <input type="radio" id="normal_user" name="user" value="normal_user" required>
                 <label for="registered_user">Registra il tuo account</label>
-                <input type="radio" id="registered_user" name="user" value="registered_user">
+                <input type="radio" id="registered_user" name="user" value="registered_user" required>
 
                 <button type="submit">Registrati</button>
             </form>
+            <?php } else { ?>
+            <div class="greetings">
+                <h2><?php echo "Ciao $new_user->name $new_user->lastname!" ?></h2>
+            </div>
+            <?php } ?>
         </div>
         <div class="cart">
             <div class="icon-container">
