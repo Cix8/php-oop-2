@@ -22,35 +22,16 @@ $main_data = [
     "parapharmacy" => [$dog_defender, $attracting_lotion]
 ];
 
-$pippo = new User("Pippo", "De Pippis", "pippodepippis@email.com", "5555-4444-3333-2222");
-var_dump($pippo);
+$first_user = new Registered_user("Giacomo", "Verdi", "giacomino@libero.it", "5555-4444-3333-2222", "03/2025");
+$second_user = new User("Franco", "Rossi", "franchino@libero.it", "1234-5678-8765-4321", "10/2023");
 
-$pluto = new Registered_user("Pluto", "De Plutis", "plutodeplutis@email.it", "1234-5678-8765-4321");
-var_dump($pluto);
+var_dump($first_user, $second_user);
 
-$new_user;
-
-$new_name = $_POST["name"];
-$new_lastname = $_POST["lastname"];
-$new_email = $_POST["email"];
-$new_credit_card = $_POST["credit_card"];
-$new_user_type = $_POST["user"];
-
-var_dump($new_user_type);
-
-$form_done = false;
-
-if (isset($new_name) && isset($new_lastname) && isset($new_email)) {
-    if ($new_user_type === "registered_user") {
-        $new_user = new Registered_user($new_name, $new_lastname, $new_email, $new_credit_card);
-    } else {
-        $new_user = new User($new_name, $new_lastname, $new_email, $new_credit_card);
-    }
-
-    $form_done = true;
-}
-
-var_dump($new_user);
+$first_user->addToCart($milk);
+$first_user->addToCart($aquarium_rock);
+$first_user->addToCart($dog_defender);
+var_dump($first_user->cart);
+echo "Il prezzo finale è: € " . $first_user->getFinalPrice();
 ?>
 
 <!DOCTYPE html>
@@ -61,113 +42,9 @@ var_dump($new_user);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
-    <header>
-        <div class="form">
-            <?php if (!$form_done) { ?>
-                <form action="index.php" method="post">
-                    <label for="name">Name: </label>
-                    <input type="text" name="name" id="name" required>
-
-                    <label for="lastname">Lastname:</label>
-                    <input type="text" name="lastname" id="lastname" required>
-
-                    <label for="email">Email: </label>
-                    <input type="email" name="email" id="email" required>
-
-                    <label for="credit_card">Credit Card: </label>
-                    <input type="text" name="credit_card" id="credit_card">
-
-                    <label for="normal_user">Salva dati per singolo acquisto</label>
-                    <input type="radio" id="normal_user" name="user" value="normal_user" required>
-                    <label for="registered_user">Registra il tuo account</label>
-                    <input type="radio" id="registered_user" name="user" value="registered_user" required>
-
-                    <button type="submit">Registrati</button>
-                </form>
-            <?php } else { ?>
-                <div class="greetings">
-                    <h2><?php echo "Ciao $new_user->name $new_user->lastname!" ?></h2>
-                </div>
-            <?php } ?>
-        </div>
-        <div class="cart">
-            <div class="icon-container">
-                <i class="fas fa-shopping-cart">
-                    <div class="cart-counter">
-                        <span><?php echo count($new_user->cart) ?></span>
-                    </div>
-                </i>
-            </div>
-            <div class="cart-contents">
-                <div class="cart-title">
-                    <h3>CART:</h3>
-                </div>
-                <?php if (isset($new_user->cart) && !empty($new_user->cart)) { ?>
-                    <ul>
-                        <?php foreach ($new_user->cart as $single_product) { ?>
-                            <li>
-                                <span><?php echo "$single_product->brand $single_product->name | € $single_product->price"  ?></span>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                <?php } else { ?>
-                    <span>VUOTO</span>
-                <?php } ?>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <?php foreach ($main_data as $key => $single_obj) { ?>
-            <div class="title">
-                <h2><?php echo strtoupper($key); ?></h2>
-            </div>
-            <ul class="<?php echo $key; ?>">
-                <?php foreach ($single_obj as $single_data) { ?>
-                    <li class="list-contents">
-                        <div class="brand">
-                            <h5><?php echo $single_data->brand ?></h5>
-                        </div>
-                        <div class="name">
-                            <h3><?php echo $single_data->name ?></h3>
-                        </div>
-                        <div class="price">
-                            <span>Prezzo: </span>
-                            <span>€ <?php echo $single_data->price ?></span>
-                        </div>
-                        <div class="rating">
-                            <span>Rating: </span>
-                            <span><?php echo $single_data->rating ?></span>
-                        </div>
-                        <?php if ($single_data->expiration) { ?>
-                            <div class="expiration">
-                                <span>Expiration: </span>
-                                <span><?php echo $single_data->expiration ?></span>
-                            </div>
-                        <?php } elseif ($single_data->color) { ?>
-                            <div class="color">
-                                <span>Color: </span>
-                                <span><?php echo $single_data->color ?></span>
-                            </div>
-                        <?php } else { ?>
-                            <div class="dedicated_to">
-                                <span>Dedicated to:</span>
-                                <span><?php echo $single_data->dedicated_to ?></span>
-                            </div>
-                        <?php } ?>
-                    </li>
-                <?php } ?>
-            </ul>
-        <?php } ?>
-    </main>
 
 </body>
 
