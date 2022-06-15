@@ -9,7 +9,7 @@ class User {
     public $cart = [];
     protected $registered;
 
-    function __construct($_name, $_lastname, $_email, $credit_card_number, $credit_card_expiration, $_registered = false)
+    function __construct($credit_card_number, $credit_card_expiration, $_name = "", $_lastname = "", $_email = "", $_registered = false)
     {
         $this->name = $_name;
         $this->lastname = $_lastname;
@@ -18,12 +18,15 @@ class User {
             "number" => $credit_card_number,
             "expiration" => $credit_card_expiration
         ];
-        $this->password = $this->fakePwGen();
         $this->registered = $_registered;
+        $this->password = $this->fakePwGen();
     }
 
     public function fakePwGen() {
-        return "safe.password1234";
+        if ($this->registered) {
+            return "safe.password1234";
+        }
+        return null;
     }
 
     public function addToCart($item) {
