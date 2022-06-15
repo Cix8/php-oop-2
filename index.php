@@ -4,6 +4,7 @@ require_once __DIR__ . "/Food.php";
 require_once __DIR__ . "/Accessories.php";
 require_once __DIR__ . "/Parapharmacy.php";
 require_once __DIR__ . "/User.php";
+require_once __DIR__ . "/Registered_user.php";
 
 $milk = new Food("Whiskas", "Catmilk", 2, 8, "22/10/2022");
 $dog_snaks = new Food("Happy Dog", "Soft Snack", 2.5, 7, "15/01/2023");
@@ -20,6 +21,12 @@ $main_data = [
     "accessories" => [$aquarium_rock, $pet_carrier],
     "parapharmacy" => [$dog_defender, $attracting_lotion]
 ];
+
+$pippo = new User("Pippo", "De Pippis", "pippodepippis@email.com", "5555-4444-3333-2222");
+var_dump($pippo);
+
+$pluto = new Registered_user("Pluto", "De Plutis", "plutodeplutis@email.it", "1234-5678-8765-4321");
+var_dump($pluto);
 ?>
 
 <!DOCTYPE html>
