@@ -27,6 +27,26 @@ var_dump($pippo);
 
 $pluto = new Registered_user("Pluto", "De Plutis", "plutodeplutis@email.it", "1234-5678-8765-4321");
 var_dump($pluto);
+
+$new_user;
+
+$new_name = $_POST["name"];
+$new_lastname = $_POST["lastname"];
+$new_email = $_POST["email"];
+$new_credit_card = $_POST["credit_card"];
+$new_user_type = $_POST["user"];
+
+var_dump($new_user_type);
+
+if (!empty($new_name) && !empty($new_lastname) && !empty($new_email)) {
+    if ($new_user_type === "registered_user") {
+        $new_user = new Registered_user($new_name, $new_lastname, $new_email, $new_credit_card);
+    } else {
+        $new_user = new User($new_name, $new_lastname, $new_email, $new_credit_card);
+    }
+}
+
+var_dump($new_user);
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +66,28 @@ var_dump($pluto);
 <body>
 
     <header>
+        <div class="form">
+            <form action="index.php" method="post">
+                <label for="name">Name: </label>
+                <input type="text" name="name" id="name">
+
+                <label for="lastname">Lastname:</label>
+                <input type="text" name="lastname" id="lastname">
+
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email">
+
+                <label for="credit_card">Credit Card: </label>
+                <input type="text" name="credit_card" id="credit_card">
+
+                <label for="normal_user">Salva dati per singolo acquisto</label>
+                <input type="radio" id="normal_user" name="user" value="normal_user">
+                <label for="registered_user">Registra il tuo account</label>
+                <input type="radio" id="registered_user" name="user" value="registered_user">
+
+                <button type="submit">Registrati</button>
+            </form>
+        </div>
         <div class="cart">
             <div class="icon-container">
                 <i class="fas fa-shopping-cart">
