@@ -21,8 +21,7 @@ $main_data = [
     "parapharmacy" => [$dog_defender, $attracting_lotion]
 ];
 
-$first_user = new User("Giacomo", "Verdi", "giacomino@libero.it", "5555-4444-3333-2222", "03/2022", true);
-
+$first_user = new User("Giacomo", "Verdi", "giacomino@libero.it", "5555-4444-3333-2222", "05/2022", true);
 var_dump($first_user);
 
 $first_user->addToCart($milk);
@@ -31,7 +30,9 @@ $first_user->addToCart($dog_defender);
 var_dump($first_user->cart);
 echo "Il prezzo finale per " . $first_user->name. " è: € " . $first_user->getFinalPrice();
 
-$second_user = new User("Franco", "Rossi", "franchino@libero.it", "1234-5678-8765-4321", "10/2025");
+$first_user->buyItems();
+
+$second_user = new User("Franco", "Rossi", "franchino@libero.it", "1234-5678-8765-4321", "10/2022");
 var_dump($second_user);
 
 $second_user->addToCart($milk);
@@ -39,4 +40,6 @@ $second_user->addToCart($aquarium_rock);
 $second_user->addToCart($dog_defender);
 var_dump($second_user->cart);
 echo "Il prezzo finale per " . $second_user->name. " è: € " . $second_user->getFinalPrice();
+
+$second_user->buyItems();
 ?>

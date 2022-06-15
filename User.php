@@ -40,5 +40,20 @@ class User {
         }
         return $final_price;
     }
+
+    public function buyItems() {
+        $card_year = intval(explode("/" ,$this->credit_card["expiration"])[1]);
+        $card_month = intval(explode("/", $this->credit_card["expiration"])[0]);
+        var_dump($card_year, $card_month);
+        $current_year = intval(date("Y"));
+        $current_month = intval(date("m"));
+        var_dump($current_year, $current_month);
+        if (($card_year > $current_year) || ($card_year === $current_year && $card_month > $current_month)) {
+            echo "Pagamento effettuato!";
+            return true;
+        }
+        echo "Pagamento non riuscito, la tua carta è scaduta";
+        return false;
+    }
 }
 ?>
