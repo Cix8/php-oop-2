@@ -40,7 +40,7 @@ var_dump($new_user_type);
 
 $form_done = false;
 
-if (!empty($new_name) && !empty($new_lastname) && !empty($new_email)) {
+if (isset($new_name) && isset($new_lastname) && isset($new_email)) {
     if ($new_user_type === "registered_user") {
         $new_user = new Registered_user($new_name, $new_lastname, $new_email, $new_credit_card);
     } else {
@@ -72,37 +72,37 @@ var_dump($new_user);
     <header>
         <div class="form">
             <?php if (!$form_done) { ?>
-            <form action="index.php" method="post">
-                <label for="name">Name: </label>
-                <input type="text" name="name" id="name" required>
+                <form action="index.php" method="post">
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" id="name" required>
 
-                <label for="lastname">Lastname:</label>
-                <input type="text" name="lastname" id="lastname" required>
+                    <label for="lastname">Lastname:</label>
+                    <input type="text" name="lastname" id="lastname" required>
 
-                <label for="email">Email: </label>
-                <input type="email" name="email" id="email" required>
+                    <label for="email">Email: </label>
+                    <input type="email" name="email" id="email" required>
 
-                <label for="credit_card">Credit Card: </label>
-                <input type="text" name="credit_card" id="credit_card">
+                    <label for="credit_card">Credit Card: </label>
+                    <input type="text" name="credit_card" id="credit_card">
 
-                <label for="normal_user">Salva dati per singolo acquisto</label>
-                <input type="radio" id="normal_user" name="user" value="normal_user" required>
-                <label for="registered_user">Registra il tuo account</label>
-                <input type="radio" id="registered_user" name="user" value="registered_user" required>
+                    <label for="normal_user">Salva dati per singolo acquisto</label>
+                    <input type="radio" id="normal_user" name="user" value="normal_user" required>
+                    <label for="registered_user">Registra il tuo account</label>
+                    <input type="radio" id="registered_user" name="user" value="registered_user" required>
 
-                <button type="submit">Registrati</button>
-            </form>
+                    <button type="submit">Registrati</button>
+                </form>
             <?php } else { ?>
-            <div class="greetings">
-                <h2><?php echo "Ciao $new_user->name $new_user->lastname!" ?></h2>
-            </div>
+                <div class="greetings">
+                    <h2><?php echo "Ciao $new_user->name $new_user->lastname!" ?></h2>
+                </div>
             <?php } ?>
         </div>
         <div class="cart">
             <div class="icon-container">
                 <i class="fas fa-shopping-cart">
                     <div class="cart-counter">
-                        <span>1</span>
+                        <span><?php echo count($new_user->cart) ?></span>
                     </div>
                 </i>
             </div>
@@ -110,11 +110,17 @@ var_dump($new_user);
                 <div class="cart-title">
                     <h3>CART:</h3>
                 </div>
-                <ul>
-                    <li>
-                        Nome_prodotto, prezzo
-                    </li>
-                </ul>
+                <?php if (isset($new_user->cart) && !empty($new_user->cart)) { ?>
+                    <ul>
+                        <?php foreach ($new_user->cart as $single_product) { ?>
+                            <li>
+                                <span><?php echo "$single_product->brand $single_product->name | € $single_product->price"  ?></span>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                <?php } else { ?>
+                    <span>VUOTO</span>
+                <?php } ?>
             </div>
         </div>
     </header>

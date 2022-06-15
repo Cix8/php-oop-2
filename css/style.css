@@ -29,9 +29,9 @@ header .icon-container .cart-counter {
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(+50%, -50%);
-    width: 20px;
-    height: 20px;
+    transform: translate(+60%, -50%);
+    width: 25px;
+    height: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,6 +55,11 @@ header .cart-contents {
 
 .cart-contents ul {
     padding: 0 2rem 1rem;
+}
+
+.cart-contents span {
+    display: block;
+    padding: 1rem 2rem 2rem;
 }
 
 .cart-contents ul li {
