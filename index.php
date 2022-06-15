@@ -43,3 +43,25 @@ echo "Il prezzo finale per " . $second_user->name. " è: € " . $second_user->g
 
 $second_user->buyItems();
 ?>
+
+<h2>Carrello di <?php echo $first_user->name . " " . $first_user->lastname; ?>: </h2>
+<ul>
+    <?php foreach($first_user->cart as $single_item) { ?>
+        <li>
+            <span><?php echo $single_item->getInfo() ?></span>
+        </li>
+    <?php } ?>
+</ul>
+<h3>Totale da pagare: € <?php echo $first_user->getFinalPrice() ?></h3>
+<h4>Esito Pagamento: <?php $first_user->buyItems() ?></h4>
+
+<h2>Carrello di <?php echo $second_user->name . " " . $second_user->lastname; ?>: </h2>
+<ul>
+    <?php foreach($second_user->cart as $single_item) { ?>
+        <li>
+            <span><?php echo $single_item->getInfo() ?></span>
+        </li>
+    <?php } ?>
+</ul>
+<h3>Totale da pagare: € <?php echo $second_user->getFinalPrice() ?></h3>
+<h4>Esito Pagamento: <?php $second_user->buyItems() ?></h4>

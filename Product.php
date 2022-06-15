@@ -14,5 +14,9 @@ class Product {
         $this->rating = $_rating;
         $this->available = $_available;
     }
+
+    public function getInfo() {
+        return $this->brand . " " . $this->name . ", prezzo: € " . $this->price;
+    }
 }
 ?>
